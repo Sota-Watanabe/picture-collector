@@ -1,35 +1,65 @@
+from slackbot.bot import respond_to
+from slackbot.bot import listen_to
+from slackbot.bot import default_reply
+import slackbot_settings
 import codecs
 import requests
-from slackbot.bot import respond_to
-from slackbot.bot import default_reply
-# from slackbot.bot import listen_to
-import slackbot_settings
-
+import base64
 
 # メンションあり応答
 @respond_to('こんにちは')
 def greeting(message):
-    text = message._body['text']
     # メンションして応答
-    message.reply(text)
-
-
-# メンションあり応答
-@respond_to('^aaa$')
-def test(message):
-    url = 'http://127.0.0.1:5000/post'
-    payload = {'foo':'bar'}
-    response = requests.post(url, payload)
-    print(response.text)
-    text = message._body['text'] + 'fsda'
-    # メンションして応答
-    message.reply(text)
+    message.reply('こんにちは!')
 
 @default_reply
 def my_default_handler(message):
     # デフォルトリプライをsendに変更する
     message.send(slackbot_settings.DEFAULT_REPLY)
-    
+
+
+@respond_to('upload')
+def greeting1(message):
+    # メンションして応答
+    url = message.body['files'][0]['url_private']
+
+    # rst = requests.get(url, headers={'Authorization': 'Bearer %s' % slackbot_settings.API_TOKEN}, stream=True)
+    content = requests.get(
+        url,
+        allow_redirects=True,
+        headers={'Authorization': 'Bearer %s' % slackbot_settings.API_TOKEN}, stream=True
+    ).content
+
+    enc_file = base64.b64encode(content)
+    url = 'http://127.0.0.1:5000/post'
+    payload = {'enc_img': enc_file}
+    response = requests.post(url, payload)
+    print(response.text)
+    message.reply('upload完了')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # @respond_to('^ファイルダウンロード$')
 @respond_to('^アップロード$')
