@@ -1,0 +1,1 @@
+SAVE_PATH = '$HOME/Pictures/img_from_bot'
