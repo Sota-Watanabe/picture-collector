@@ -2,7 +2,7 @@
 import os
 
 # 環境変数に定義しておく
-API_TOKEN = 'xoxb-46717260934-622020920560-manGX2nOhL2yKRmcxaA4EYkk'
+API_TOKEN = 'slack botのトークン'
 
 # デフォルトの応答
 DEFAULT_REPLY = "すみません。よくわかりません"
