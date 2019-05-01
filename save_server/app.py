@@ -6,7 +6,8 @@ app = Flask(__name__)
 def post():
     if request.method == 'POST':
         hoge = request.form['foo']
-        return hoge
+        print(type(hoge))
+        return 'Hello!!'
     else:
         hoge = request.form['foo']
         return hoge   
