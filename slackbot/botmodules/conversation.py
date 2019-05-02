@@ -1,5 +1,6 @@
 import codecs
 import base64
+import os
 import requests
 from slackbot.bot import respond_to
 from slackbot.bot import default_reply
@@ -18,6 +19,7 @@ def my_default_handler(message):
 def upload(message):
     if 'files' in message.body:
         url = message.body['files'][0]['url_private']
+        ex = os.path.splitext(url)[1]
         try:
             content = requests.get(
                 url,
@@ -26,7 +28,7 @@ def upload(message):
             ).content
             enc_file = base64.b64encode(content)
             url = slackbot_settings.SAVE_SERVER_URL
-            payload = {'enc_img': enc_file}
+            payload = {'enc_img': enc_file, 'extension': ex}
             response = requests.post(url, payload)
             print(response.text)
             message.reply('upload完了')
