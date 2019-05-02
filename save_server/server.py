@@ -3,7 +3,10 @@ import requests, urllib3, os, shutil, base64, codecs
 import server_setting
 app = Flask(__name__)
 
- 
+@app.route('/')
+def index():
+    return "Hello! It's sotaServer in SIT !"
+
 @app.route("/post", methods=['GET', 'POST'])
 def post():
     if request.method == 'POST':
@@ -13,13 +16,12 @@ def post():
         with codecs.open(server_setting.SAVE_PATH + request.form['name'], 'wb') as fo:
             fo.write(content)
         
-
         return 'aaa'
     else:
-        hoge = request.form['foo']
+        # hoge = request.form['foo']
         return 'GET'   
  
 
 if __name__ == '__main__':
-    # http://localhost:5000/ でアクセスできるよう起動
-    app.run(host='localhost', port=5000)
+    # app.run(debug=False, host='0.0.0.0', port=80)
+    app.run(host="0.0.0.0", port=80)
