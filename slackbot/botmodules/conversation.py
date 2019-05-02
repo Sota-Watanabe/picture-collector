@@ -16,22 +16,23 @@ def my_default_handler(message):
 
 @respond_to('^upload$')
 def upload(message):
-    # メンションして応答
     if 'files' in message.body:
-        url = message.body['files'][0]['url_private'] # 複数画像がまだ未対応
-        name = message.body['files'][0]['name']
-        content = requests.get(
-            url,
-            allow_redirects=True,
-            headers={'Authorization': 'Bearer %s' % slackbot_settings.API_TOKEN}, stream=True
-        ).content
-
-        enc_file = base64.b64encode(content)
-        url = slackbot_settings.SAVE_SERVER_URL
-        payload = {'enc_img': enc_file, 'name': name}
-        response = requests.post(url, payload)
-        print(response.text)
-        message.reply('upload完了')
+        url = message.body['files'][0]['url_private']
+        try:
+            content = requests.get(
+                url,
+                allow_redirects=True,
+                headers={'Authorization': 'Bearer %s' % slackbot_settings.API_TOKEN}, stream=True
+            ).content
+            enc_file = base64.b64encode(content)
+            url = slackbot_settings.SAVE_SERVER_URL
+            payload = {'enc_img': enc_file}
+            response = requests.post(url, payload)
+            print(response.text)
+            message.reply('upload完了')
+        except requests.ConnectionError as ex:
+            message.reply('エラーが発生しました。\n画像保存サーバが機能しているか確かめてください\n'
+                          + str(ex))
     else:
         message.reply('画像を添付してください')
 
