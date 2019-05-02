@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "/home/sota/envs/slackbot/bin/python",
+    "python.linting.pylintUseMinimalCheckers": false,
+    "python.linting.pylintArgs": [
+        "--disable","missing-docstring",
+    ],
+}

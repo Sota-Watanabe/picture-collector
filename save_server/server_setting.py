@@ -1,1 +1,1 @@
-SAVE_PATH = '$HOME/Pictures/img_from_bot'
+SAVE_PATH = '/home/sota/Pictures/img_from_bot/'
