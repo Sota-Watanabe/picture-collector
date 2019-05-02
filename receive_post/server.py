@@ -18,9 +18,8 @@ def post():
         ex = request.form['extension']
         content = base64.b64decode(enc_img)
         time = datetime.now().strftime("%Y%m%d-%H%M%S")
-        if not os.path.isfile(server_setting.SAVE_PATH):
-            os.makedirs(server_setting.SAVE_PATH)
-        with codecs.open(server_setting.SAVE_PATH + time + ex, 'wb') as fo:
+        os.makedirs(server_setting.SAVE_PATH, exist_ok=True)
+        with codecs.open(server_setting.SAVE_PATH + '/' + time + ex, 'wb') as fo:
             fo.write(content)
         return 'OK'
     else:
