@@ -33,7 +33,7 @@ def upload(message):
             print(response.text)
             message.reply('upload完了')
         except requests.ConnectionError as ex:
-            message.reply('エラーが発生しました。\n画像保存サーバが機能しているか確かめてください\n'
+            message.reply('エラーが発生しました。\n開発者に連絡してください\n'
                           + str(ex))
     else:
         message.reply('画像を添付してください')
