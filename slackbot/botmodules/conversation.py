@@ -30,13 +30,13 @@ def upload(message):
             url = slackbot_settings.SAVE_SERVER_URL
             payload = {'enc_img': enc_file, 'extension': ex}
             response = requests.post(url, payload)
-            print(response.text)
-            message.reply('upload完了')
+            reply_msg = response.text
         except requests.ConnectionError as ex:
-            message.reply('エラーが発生しました。\n開発者に連絡してください\n'
-                          + str(ex))
+            reply_msg = 'slackbot側でエラーが発生しました。\n開発者に連絡してください\n' + str(ex)
     else:
-        message.reply('画像を添付してください')
+        reply_msg = '画像を添付してください'
+
+    message.reply(reply_msg)
 
 
 
