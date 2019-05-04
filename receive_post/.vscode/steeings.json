@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "/home/sota/envs/api_server/bin/python",
+    "python.linting.pylintUseMinimalCheckers": false,
+    "python.linting.pylintArgs": [
+        "--disable","missing-docstring",
+        "--disable","invalid-name"
+    ]
+}
