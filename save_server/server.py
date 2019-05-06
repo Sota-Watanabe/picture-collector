@@ -1,6 +1,7 @@
 import os
 import base64
 import codecs
+import subprocess
 from datetime import datetime
 from flask import Flask, request
 import server_setting
@@ -22,9 +23,19 @@ def post():
             os.makedirs(server_setting.SAVE_PATH, exist_ok=True)
             with codecs.open(server_setting.SAVE_PATH + time + ex, 'wb') as fo:
                 fo.write(content)
+        
+            subprocess.run("sudo pkill -9 -x fbi".split())
+            subprocess.run("sudo fbi -T 1 -a -noverbose -t 30 -u -blend 4000 /home/pi/Pictures/img_from_bot/*", shell=True)
+
+
         except PermissionError as ex:
             return 'サーバ側でエラーが発生しました。\n開発者に連絡してください\n' + ex
+        except subprocess.SubprocessError as ex:
+            return 'サーバ側でエラーが発生しました。\n開発者に連絡してください\n' + ex
+
         return 'uploadが完了しました!'
+
+
     else:
         return 'GET'
 
