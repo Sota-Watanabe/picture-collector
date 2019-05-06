@@ -21,9 +21,9 @@ def post():
         try:
             os.makedirs(server_setting.SAVE_PATH, exist_ok=True)
             with codecs.open(server_setting.SAVE_PATH + time + ex, 'wb') as fo:
-                fo.write(content)       
+                fo.write(content)
         except PermissionError as ex:
-            return f'サーバ側でエラーが発生しました。\n開発者に連絡してください\n{ex}'
+            return 'サーバ側でエラーが発生しました。\n開発者に連絡してください\n' + ex
         return 'uploadが完了しました!'
     else:
         return 'GET'
